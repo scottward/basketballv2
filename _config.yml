@@ -1,6 +1,6 @@
 # change the followings to match your Github username and repo name
-baseurl: "/basketballv2" # the name of your github repo
-url: "https://scottward.github.io/basketballv2" # the url of your github pages
+baseurl: "" # the name of your github repo
+url: "https://langleybasketball.netlify.app" # the url of your github pages
 
 # site information used in page title, meta data etc.
 title: "Langley Men’s Pick-Up Basketball"
