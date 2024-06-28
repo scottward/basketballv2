@@ -1,6 +1,6 @@
 {
   "name": "tailpages",
-  "version": "1.0.0",
+  "version": "4.0.2",
   "main": "index.js",
   "repository": "https://github.com/harrywang/tailpages.git",
   "author": "Harry Wang <harryjwang@gmail.com>",
