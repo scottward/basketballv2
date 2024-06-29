@@ -5,17 +5,82 @@ layout: default
   {% include nav.html%}
 {% endif %}
 
-<div class="mx-auto text-center prose prose-{{site.theme-color}}">
-  <div>
-    <img class="object-cover mx-auto h-36 w-36 rounded-full" src="{{site.baseurl}}/assets/img/{{site.author-image}}"
-      alt="author profile image">
-    <h1>{{site.author}}</h1>
-  </div>
-  {% if site.author-bio %}
-  <p class="text-gray-500 pb-4">{{site.author-bio}}</p>
-  {% endif %}
-</div>
+<div class="mx-auto max-w-screen-xl px-4 py-8">
+  <section class="bg-white dark:bg-gray-900">
+    <div class="grid lg:py-16 lg:grid-cols-12  lg:gap-8 xl:gap-0 ">
+        <div class="mr-auto place-self-center lg:col-span-7">
+            <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
+              Langley Men’s Pick-Up Basketball
+            </h1>
+            <p class="max-w-2xl mb-6 text-gray-700 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-600 mt-8">
+              Fun, friendly, competitive play.
+              <br>Tuesdays and Thursday mornings at <b>6:30am.</b>
+              <br><b>Experience playing basketball is necessary.</b>
+            </p>
+            <p class="text-lg">Next session:</p>
+            <p class="mt-2"><mark class="text-primary-content font-bold p-2 mt-2"> <span id="next-date"></span>, 6:30am</mark></p>
+            <!-- for some reason bg-primary etc aren't included. some config thing with tailwind surely -->
+            <a href="#" class="mt-9 inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-slate-800 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
+              Get on the player list
+              <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </a>
+        </div>
+        <div class="lg:mt-0 lg:col-span-5 lg:flex">
+            <img class="mx-auto" src="{{site.baseurl}}/assets/img/hoop-from-below-square.jpg">
+        </div>                
+    </div>
+  </section>
+  <section>
+    <h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl lg:text4xl dark:text-white">Location</h1>
+  </section>
 </div>
 
-{% include social-media.html %}
-{% include footer.html %}
+  <script>
+      function getNextTuesdayOrThursday() {
+          const today = new Date();
+
+          // Convert to PST
+          const pstOffset = -8 * 60; // PST is UTC-8
+          const localOffset = today.getTimezoneOffset();
+          const pstTime = new Date(today.getTime() + (localOffset + pstOffset) * 60 * 1000);
+
+          const dayOfWeek = pstTime.getDay(); // getDay() returns 0 for Sunday, 1 for Monday, ..., 6 for Saturday
+          let daysUntilNext;
+
+          if (dayOfWeek === 0) {
+              // Sunday
+              daysUntilNext = 2; // Next Tuesday
+          } else if (dayOfWeek === 1) {
+              // Monday
+              daysUntilNext = 1; // Next Tuesday
+          } else if (dayOfWeek === 2) {
+              // Tuesday
+              daysUntilNext = 2; // Next Thursday
+          } else if (dayOfWeek === 3) {
+              // Wednesday
+              daysUntilNext = 1; // Next Thursday
+          } else if (dayOfWeek === 4) {
+              // Thursday
+              daysUntilNext = 5; // Next Tuesday
+          } else if (dayOfWeek === 5) {
+              // Friday
+              daysUntilNext = 4; // Next Tuesday
+          } else if (dayOfWeek === 6) {
+              // Saturday
+              daysUntilNext = 3; // Next Tuesday
+          }
+
+          const nextDate = new Date(pstTime.getTime() + daysUntilNext * 24 * 60 * 60 * 1000);
+
+          // Format date as "Tuesday, July 2, 2024"
+          const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+          return nextDate.toLocaleDateString('en-US', options);
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+          const nextDate = getNextTuesdayOrThursday();
+          document.getElementById('next-date').innerText = nextDate;
+      });
+  </script>  
+
+
